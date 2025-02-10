@@ -7,19 +7,25 @@
     <element name="admissions">
         <complexType>
             <sequence>
-                <element ref="ad:ug_details" />
-                <element ref="ad:gate_score" />
-                <element ref="ad:awards" minOccurs="0" maxOccurs="1" />
-            </sequence>
+                <element name="application">
+                    <complexType>
+                        <sequence>
+                            <element ref="ad:ug_details" />
+                            <element ref="ad:gate_score" />
+                            <element ref="ad:awards" minOccurs="0" maxOccurs="1" />
+                        </sequence>
 
-            <!--  application_id attribute  -->
-            <attribute name="application_id" use="required">
-                <simpleType>
-                    <restriction base="string">
-                        <pattern value="APFE\d{4}" />
-                    </restriction>
-                </simpleType>
-            </attribute>
+                        <!--  application_id attribute  -->
+                        <attribute name="application_id" use="required">
+                            <simpleType>
+                                <restriction base="string">
+                                    <pattern value="APFE\d{4}" />
+                                </restriction>
+                            </simpleType>
+                        </attribute>
+                    </complexType>
+                </element>
+            </sequence>
         </complexType>
     </element>
 
@@ -53,12 +59,6 @@
     <element name="gate_score" type="ad:score"/>
 
     <complexType name="score">
-        <simpleContent>
-            <restriction base="integer">
-                <minInclusive value="100" />
-                <maxInclusive value="1000" />
-            </restriction>
-        </simpleContent>
         <attribute name="year" use="required">
             <simpleType>
                 <restriction base="integer">

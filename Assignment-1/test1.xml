@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<admissions xmlns="http://www.iiitb.ac.in/mt2024064"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:XMLSchema-instance="http://www.iiitb.ac.in/mt2024064 admissions.xsd">
+        
+    <application application_id="APFE1234">
+        <ug_details>
+            <college_name>iiitb</college_name>
+            <branch>CSE</branch>
+        </ug_details>
+
+        <gate_score year="2024">599</gate_score>
+        <awards>599</awards>
+    </application>
+
+</admissions>
