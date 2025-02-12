@@ -1,6 +1,6 @@
-<admissions xmlns="http://www.iiitb.ac.in/mt2024064"
+<admissions xmlns="http://iiitb.ac.in/mt2024064"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://www.iiitb.ac.in/mt2024064 admissions.xsd">
+            xsi:schemaLocation="http://iiitb.ac.in/mt2024064 admissions.xsd">
         
     <application application_id="APFE1234">
         <ug_details>

@@ -59,6 +59,16 @@
     <xsd:element name="gate_score" type="score"/>
 
     <xsd:complexType name="score">
+        <xsd:sequence>
+            <xsd:element name="score_number">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:minInclusive value="100" />
+                        <xsd:maxInclusive value="1000" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
         <xsd:attribute name="year" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:integer">
@@ -66,6 +76,20 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+
+        <!-- <xsd:simpleContent>
+            <xsd:restriction base="xsd:integer">
+                <xsd:minInclusive value="100" />
+                <xsd:maxInclusive value="1000" />
+            </xsd:restriction>
+        </xsd:simpleContent>
+        <xsd:attribute name="year" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:integer">
+                    <xsd:pattern value="20\d{2}" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute> -->
     </xsd:complexType>
 
 
