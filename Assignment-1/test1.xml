@@ -8,7 +8,9 @@
             <branch>CSE</branch>
         </ug_details>
 
-        <gate_score year="2024">599</gate_score>
+        <gate_score year="2024">
+            <score_number>199</score_number>
+        </gate_score>
         <awards>599</awards>
     </application>
 </admissions>
