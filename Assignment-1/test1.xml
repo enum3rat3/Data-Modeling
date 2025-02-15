@@ -7,10 +7,6 @@
             <college_name>iiitb</college_name>
             <branch>CSE</branch>
         </ug_details>
-
-        <gate_score year="2024">
-            <score_number>199</score_number>
-        </gate_score>
-        <awards>599</awards>
+        <gate_score year="2024">199</gate_score>
     </application>
 </admissions>

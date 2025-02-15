@@ -1,104 +1,92 @@
 <?xml version="1.0"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://iiitb.ac.in/mt2024064"
-        xmlns="http://iiitb.ac.in/mt2024064"
+        xmlns:ad="http://iiitb.ac.in/mt2024064"
         elementFormDefault="qualified">
 
-    <xsd:element name="admissions">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="application">
-                    <xsd:complexType>
-                        <xsd:sequence>
-                            <xsd:element ref="ug_details" />
-                            <xsd:element ref="gate_score" />
-                            <xsd:element ref="awards" minOccurs="0" maxOccurs="1" />
-                        </xsd:sequence>
+    <element name="admissions">
+        <complexType>
+            <sequence>
+                <element name="application">
+                    <complexType>
+                        <sequence>
+                            <element ref="ad:ug_details" />
+                            <element ref="ad:gate_score" />
+                            <element ref="ad:awards" minOccurs="0" maxOccurs="1" />
+                        </sequence>
 
-                        <!--  application_id xsd:attribute  -->
-                        <xsd:attribute name="application_id" use="required">
-                            <xsd:simpleType>
-                                <xsd:restriction base="xsd:string">
-                                    <xsd:pattern value="APFE\d{4}"/>
-                                </xsd:restriction>
-                            </xsd:simpleType>
-                        </xsd:attribute>
-                    </xsd:complexType>
-                </xsd:element>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
+                        <!--  application_id attribute  -->
+                        <attribute name="application_id" use="required">
+                            <simpleType>
+                                <restriction base="string">
+                                    <pattern value="APFE\d{4}"/>
+                                </restriction>
+                            </simpleType>
+                        </attribute>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
 
-    <!-- ug_details xsd:element -->
-    <xsd:element name="ug_details">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="college_name">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:maxLength value="50" />
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:element>
+    <!-- ug_details element -->
+    <element name="ug_details">
+        <complexType>
+            <sequence>
+                <element name="college_name">
+                    <simpleType>
+                        <restriction base="string">
+                            <maxLength value="50" />
+                        </restriction>
+                    </simpleType>
+                </element>
 
                 <!-- Branch can be either CSE or ECE -->
-                <xsd:element name="branch">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:enumeration value="CSE" />
-                            <xsd:enumeration value="ECE" />
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:element>
+                <element name="branch">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="CSE" />
+                            <enumeration value="ECE" />
+                        </restriction>
+                    </simpleType>
+                </element>
 
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
+            </sequence>
+        </complexType>
+    </element>
 
-    <!-- gate_score xsd:element -->
-    <xsd:element name="gate_score" type="score"/>
+    <!-- gate_score element -->
+    <element name="gate_score" type="ad:score"/>
 
-    <xsd:complexType name="score">
-        <xsd:sequence>
-            <xsd:element name="score_number">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:integer">
-                        <xsd:minInclusive value="100" />
-                        <xsd:maxInclusive value="1000" />
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-        </xsd:sequence>
-        <xsd:attribute name="year" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:integer">
-                    <xsd:pattern value="20\d{2}" />
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+    <complexType name="score">
+        <simpleContent>
+            <extension base="ad:gateScore">
+                <attribute name="year" use="required">
+                    <simpleType>
+                        <restriction base="integer">
+                            <pattern value="20\d{2}" />
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>
 
-        <!-- <xsd:simpleContent>
-            <xsd:restriction base="xsd:integer">
-                <xsd:minInclusive value="100" />
-                <xsd:maxInclusive value="1000" />
-            </xsd:restriction>
-        </xsd:simpleContent>
-        <xsd:attribute name="year" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:integer">
-                    <xsd:pattern value="20\d{2}" />
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute> -->
-    </xsd:complexType>
+    <!-- gate score between 100 and 1000 -->
+    <simpleType name="gateScore">
+        <restriction base="int">
+            <minInclusive value="100" />
+            <maxInclusive value="1000" />
+        </restriction>
+    </simpleType>
 
 
-    <!-- awards xsd:elements -->
-    <xsd:element name="awards">
-        <xsd:simpleType>
-            <xsd:restriction base="xsd:string">
-                <xsd:maxLength value="100" />
-            </xsd:restriction>
-        </xsd:simpleType>
-    </xsd:element>
-</xsd:schema>
+    <!-- awards elements -->
+    <element name="awards">
+        <simpleType>
+            <restriction base="string">
+                <maxLength value="100" />
+            </restriction>
+        </simpleType>
+    </element>
+</schema>
