@@ -1,0 +1,15 @@
+Q1: WITH cte1 AS (SELECT COUNT(*) AS total_prod FROM dim_prod) SELECT ord_id FROM fact_sales GROUP BY ord_id HAVING (COUNT(*)/(SELECT total_prod FROM cte1)) >= 1/3;
+
+Q2: SELECT FLOOR(profit / 2000) * 2000 AS bin_range, COUNT(*) AS frequency FROM fact_sales GROUP BY bin_range ORDER BY bin_range;
+
+Q3: WITH cte1 AS (SELECT fs.ord_id, MONTH(do.order_date) AS mon, fs.cust_id, fs.sales FROM fact_sales fs JOIN dim_cust dc ON dc.cust_id = fs.cust_id JOIN dim_order do ON do.ord_id = fs.ord_id), cte2 AS (select mon AS sales_month, cust_id, sales, DENSE_RANK() OVER(PARTITION BY mon ORDER BY sales DESC) AS rank_sales FROM cte1) SELECT * FROM cte2 WHERE rank_sales < 3;
+
+Q4: SELECT dp.product_sub_category, SUM(fs.profit) AS profit, RANK() OVER(ORDER BY SUM(fs.profit) DESC) AS profit_rank FROM fact_sales fs JOIN dim_prod dp ON dp.prod_id = fs.prod_id GROUP BY dp.product_sub_category;
+
+Q5: WITH cte1 AS (SELECT ord_id, sales, discount, profit, DENSE_RANK() OVER(ORDER BY profit DESC) AS profit_rank FROM fact_sales) SELECT * FROM cte1 WHERE profit_rank < 21;
+
+Q6: HARD
+
+Q7: WITH cte1 AS (SELECT dp.product_sub_category, SUM(fs.profit) AS profit FROM fact_sales fs JOIN dim_prod dp ON dp.prod_id = fs.prod_id GROUP BY dp.product_sub_category), cte2 AS (SELECT product_sub_category, CUME_DIST() OVER(ORDER BY profit DESC) AS distribution FROM cte1) SELECT * FROM cte2 WHERE distribution < 0.25;
+
+Q8: SELECT dc.cust_id, dc.customer_name, dc.city, dc.state, dc.customer_segment FROM dim_cust dc LEFT JOIN fact_sales fs ON fs.cust_id = dc.cust_id WHERE fs.cust_id IS NULL
