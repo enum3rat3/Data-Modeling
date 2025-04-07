@@ -2,7 +2,7 @@ Q1: WITH cte1 AS (SELECT COUNT(*) AS total_prod FROM dim_prod) SELECT ord_id FRO
 
 Q2: SELECT FLOOR(profit / 2000) * 2000 AS bin_range, COUNT(*) AS frequency FROM fact_sales GROUP BY bin_range ORDER BY bin_range;
 
-Q3: WITH cte1 AS (SELECT fs.ord_id, MONTH(do.order_date) AS mon, fs.cust_id, fs.sales FROM fact_sales fs JOIN dim_cust dc ON dc.cust_id = fs.cust_id JOIN dim_order do ON do.ord_id = fs.ord_id), cte2 AS (select mon AS sales_month, cust_id, sales, DENSE_RANK() OVER(PARTITION BY mon ORDER BY sales DESC) AS rank_sales FROM cte1) SELECT * FROM cte2 WHERE rank_sales < 3;
+Q3: WITH cte1 AS (SELECT MONTH(do.order_date) AS mon, fs.cust_id, sum(fs.sales) AS total_sales FROM fact_sales fs JOIN dim_cust dc ON dc.cust_id = fs.cust_id JOIN dim_order do ON do.ord_id = fs.ord_id GROUP BY cust_id, MONTH(do.order_date)), cte2 AS (select mon AS sales_month, cust_id, total_sales, DENSE_RANK() OVER(PARTITION BY mon ORDER BY total_sales DESC) AS rank_sales FROM cte1) SELECT * FROM cte2 WHERE rank_sales < 3;
 
 Q4: SELECT dp.product_sub_category, SUM(fs.profit) AS profit, RANK() OVER(ORDER BY SUM(fs.profit) DESC) AS profit_rank FROM fact_sales fs JOIN dim_prod dp ON dp.prod_id = fs.prod_id GROUP BY dp.product_sub_category;
 
